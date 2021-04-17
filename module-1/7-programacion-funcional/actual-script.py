@@ -12,5 +12,4 @@ mean_df = get_means(df)
 mean_df
 
 
-
 # %%

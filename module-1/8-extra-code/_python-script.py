@@ -1,10 +1,9 @@
-n_odds = 0
+# %%
+import pandas as pd
+import os
+# %%
+os.listdir()
 
-for i in range(1, 14, 2):
-    # check for the value of i in each iterations
-    breakpoint()
-    # bad condition
-    if i % 2 == 0:
-        n_odds += 1
-
-print(n_odds)
+# %%
+df = pd.DataFrame({"one":1,"two":2},{"one":11,"two":22})
+# %%

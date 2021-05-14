@@ -1,7 +1,6 @@
 # %%
 import requests
 import json
-from bs4 import BeautifulSoup
 from flask import Flask, render_template
 
 def get_superheros():

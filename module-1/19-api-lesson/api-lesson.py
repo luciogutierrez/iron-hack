@@ -2,26 +2,22 @@
 import requests
 import base64
 from urllib.parse import urlencode
-# %%
-client_id = '0ae93242eb074d1a8479c8072ede701a'
-client_secret = '137093eb58fe477388bfc713ab927c9a'
 
-# %%
+# get credentials
+def get_key(key):
+    with open('C:/Windows/AppsKeys/Spotify/'+key+'.txt', 'r') as file_read:
+        app_key = file_read.readline()
+    return app_key
+
+client_id = get_key('client_id')
+client_secret = get_key('client_secret')
+
 credentials_developer = f'{client_id}:{client_secret}'
-# %%
 print(type(credentials_developer))
+
 # %%
 credentials_developer_b64 = base64.b64encode(credentials_developer.encode())
-type(credentials_developer_b64)
-
-# %%
-credentials_developer_b64
-# %%
-{
-    "access_token": "BQB1HyRzFCkWj8xmxKA5IfsdklZOTqRA5udXiozGOMJYL1W2yTGnl7tiKoRU_CVjvDEuyJsXQp9aHnkNk-k",
-    "token_type": "Bearer",
-    "expires_in": 3600
-}
+print(type(credentials_developer_b64))
 
 # %%
 token_url = 'https://accounts.spotify.com/api/token'

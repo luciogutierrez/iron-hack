@@ -7,8 +7,6 @@ response_dict = {}
 
 # %%
 # construct url with dinamic folders
-
-
 def url_fun(*args):
     url = 'http://gateway.marvel.com/'
     return url + '/'.join(args)
@@ -34,16 +32,21 @@ def get_data_from_url():
     # request data from url
     args = {'apikey': apikey,
             'ts': ts,
-            'hash': hash}
+            'hash': hash,
+            'limit':50
+            }
     headers = {'Content-Type': 'application/json'}
-    response = requests.get(url, params=args, headers=headers)
-    # built a dictionary object with response
-    print(response.status_code)
-    if response.status_code == 200:
-        response = response.json()
-    # return dictionary object
-    return response
-
+    try:
+        response = requests.get(url, params=args, headers=headers)
+        response.raise_for_status()
+        if response.status_code == 200:
+            response = response.json()
+            return response
+    except requests.exceptions.HTTPError as error:
+        print(error.response.text)
+    except requests.exceptions.RequestException as error:
+        print(error.response.text)
+    
 
 # %%
 response_dict = get_data_from_url()
@@ -58,7 +61,7 @@ response_dict = get_data_from_url()
 # print(response_dict['data'].keys())
 # print(type(response_dict['data']['results']))
 # print(len(response_dict['data']['results']))
-print(response_dict['data']['results'][0].keys())
+print(response_dict['data']['results'][49].keys())
 # print(response_dict['data']['results'][1])
 
 # %%
@@ -92,9 +95,14 @@ for hero in list_data_results:
 print(heros)
 # %%
 df_headers = ('Id', 'Name', 'Description', 'Modified', 'Image URL', 'URL')
-df_hero = pd.DataFrame(heros['data'][0].values()).transpose()
+df_heros = pd.DataFrame(heros['data'][0].values()).transpose()
 for i in range(1, len(list_data_results)):
     df_next = pd.DataFrame(heros['data'][i].values()).transpose()
-    df_hero = df_hero.append(df_next, ignore_index=True)
+    df_heros = df_heros.append(df_next, ignore_index=True)
 df_hero.columns = df_headers
 print(df_hero)
+
+# %%
+df_heros.to_csv("./outputs/marvel-heros.csv")
+
+# %%

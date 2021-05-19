@@ -1,20 +1,43 @@
 # %%
 import requests
-import json
 from flask import Flask, render_template
 
-def get_superheros():
-    url = 'http://gateway.marvel.com/v1/public/characters'
-    args = {'apikey':'af18b752302271b4b7597d2abfb4c037',
-            'ts': '1',
-            'hash': '9d3c743d434a92951b6710ba2afa5d29'}
-    headers = {'Content-Type':'application/json'}
-    response = requests.get(url, params=args, headers=headers)
+# construct url with dinamic folders
+def url_fun(*args):
+    url = 'http://gateway.marvel.com/'
+    return url + '/'.join(args)
 
-    print(response.status_code)
-    if response.status_code== 200:
-        response_json = response.json()
-    return response_json
+# carga de claves
+def get_key(key):
+    with open('C:/Windows/AppsKeys/Marvel/'+key+'.key', 'r') as file_read:
+        app_key = file_read.readline()
+    return app_key
+
+def get_superheros():
+    # get credentials
+    apikey = get_key('apikey')
+    ts = get_key('ts')
+    hash = get_key('hash')
+    # get url full path
+    url = url_fun('v1', 'public', 'characters')
+    # request data from url
+    args = {'apikey': apikey,
+            'ts': ts,
+            'hash': hash,
+            'limit': 100
+            }
+    headers = {'Content-Type': 'application/json'}
+    try:
+        response = requests.get(url, params=args, headers=headers)
+        response.raise_for_status()
+        if response.status_code == 200:
+            response = response.json()
+            return response
+    except requests.exceptions.HTTPError as error:
+        print(error.response.text)
+    except requests.exceptions.RequestException as error:
+        print(error.response.text)
+
 
 app = Flask(__name__)
 

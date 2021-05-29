@@ -35,3 +35,6 @@ student.pivot_table(index='school', columns=['sex','studytime'], values='G3', fi
 # with aggregate function
 student.pivot_table(index='school', columns=['sex','studytime'], values='G3', fill_value=0, aggfunc='count')
 # %%
+# %% [markdown]
+# INEGI
+# %%

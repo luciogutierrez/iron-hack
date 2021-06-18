@@ -7,7 +7,7 @@ import numpy as np
 import pandas as pd
 
 # %%
-student = pd.read_csv('../../data-sets/student-mat.csv')
+student = pd.read_csv('../../datasets/student-mat.csv')
 # %%
 student.info()
 

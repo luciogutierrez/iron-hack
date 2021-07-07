@@ -1,3 +1,6 @@
+# %% [markdown]
+# Imports
+
 # %%
 import pandas as pd
 import numpy as np
@@ -6,7 +9,7 @@ from datetime import datetime
 
 
 # %%
-df = pd.read_csv('../../data-sets/marketing_data.csv')
+df = pd.read_csv('../../datasets/marketing_data.csv')
 
 # %%
 df.head()
@@ -19,12 +22,11 @@ df.info()
 df.isnull().sum()
 
 # %%
-df[df['Income'].isnull()==True]
+df[df['Income'].isnull()]
 
 # %%
 col_names = df.columns
 col_names
-
 # %%
 df.columns = df.columns.str.strip()
 df.head()
@@ -36,11 +38,13 @@ df.columns
 df[df['Income'].isnull()]
 
 # %%
-to_replace = [re.findall(r'Mnt.+', name)[0] for name in col_names if 'Mnt' in name]
+to_replace = [re.findall(r'Mnt.+', name)[0]
+              for name in col_names if 'Mnt' in name]
 to_replace
 
 # %%
-categories = [re.findall(r'(?<=Mnt).+', name)[0] for name in col_names if 'Mnt' in name]
+categories = [re.findall(r'(?<=Mnt).+', name)[0]
+              for name in col_names if 'Mnt' in name]
 categories
 
 # %%
@@ -57,6 +61,8 @@ df.columns
 
 # %%
 # función para limepieza de headers
+
+
 def clean_columns(df):
     """
         function that receives a dataframe
@@ -64,12 +70,15 @@ def clean_columns(df):
     """
     col_names = df.columns
     df.columns = df.columns.str.strip()
-    to_replace = [re.findall(r'Mnt.+', name)[0] for name in col_names if 'Mnt' in name]
-    categories = [re.findall(r'(?<=Mnt).+', name)[0] for name in col_names if 'Mnt' in name]
+    to_replace = [re.findall(r'Mnt.+', name)[0]
+                  for name in col_names if 'Mnt' in name]
+    categories = [re.findall(r'(?<=Mnt).+', name)[0]
+                  for name in col_names if 'Mnt' in name]
     new_name_list = ['Amount_spent_in_'+name for name in categories]
     dict_names = dict(zip(to_replace, new_name_list))
     df.rename(columns=dict_names)
     return df
+
 
 # %%
 df2 = clean_columns(df)
@@ -95,6 +104,8 @@ df['customer_age']
 df['Education'].unique()
 
 # %%
+
+
 def encode_education(var):
     if var == 'Basic':
         return 0
@@ -106,18 +117,18 @@ def encode_education(var):
         return 3
     if var == 'PhD':
         return 4
-      
+
+
 # %%
 # apply funciona en series
 df['Education_encoded'] = df['Education'].apply(encode_education)
 df['Education_encoded']
 
-
 # %%
 df.head(5)
 
 # %%
-df['Income'] = df['Income'].apply(lambda x: re.sub(r'[$,]','', str(x)))
+df['Income'] = df['Income'].apply(lambda x: re.sub(r'[$,]', '', str(x)))
 df['Income']
 
 # %%

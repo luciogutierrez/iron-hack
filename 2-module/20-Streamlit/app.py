@@ -30,7 +30,8 @@ def ge_dataset(dataset_name):
         data = datasets.load_breast_cancer()
     else:
         data = datasets.load_wine()
-    X = data.data
+    X = data.datacls
+    
     y = data.target
     return X, y
     

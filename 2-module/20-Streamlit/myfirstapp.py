@@ -6,7 +6,7 @@ from sklearn import tree
 from sklearn.model_selection import train_test_split
 
 # Cargar datasets
-df = pd.read_csv('./in/income.csv')
+df = pd.read_csv('./data/income.csv')
 
 st.write(df.columns)
 st.image('./pig.jpg')

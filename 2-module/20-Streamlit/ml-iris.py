@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import pandas as pd
 import pickle
+import os
 import seaborn as sns
 import matplotlib.pyplot as plt
 
@@ -14,7 +15,9 @@ st.markdown('El modelo puede predecir si pertenece a las siguientes categorias: 
 
 def predict(arr):
     # Load the model
-    with open('final_model.sav', 'rb') as f:
+    path = os.path.dirname(__file__)
+    data_file = path+'/final_model.sav'
+    with open(data_file, 'rb') as f:
         model = pickle.load(f)
     classes = {0:'Iris Setosa',1:'Iris Versicolor',2:'Iris Virginica'}
     # return prediction as well as class probabilities

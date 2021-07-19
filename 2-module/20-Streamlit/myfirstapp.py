@@ -1,15 +1,18 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import os
 
 from sklearn import tree
 from sklearn.model_selection import train_test_split
 
 # Cargar datasets
-df = pd.read_csv('./income.csv')
+path = os.path.dirname(__file__)
+my_file = path+'/income.csv'
+df = pd.read_csv(my_file)
 
 st.write(df.columns)
-st.image('./pig.jpg')
+# st.image('./pig.jpg')
 
 siteHeader = st.beta_container()
 with siteHeader:

@@ -12,7 +12,9 @@ my_file = path+'/income.csv'
 df = pd.read_csv(my_file)
 
 st.write(df.columns)
-# st.image('./pig.jpg')
+
+my_img = path+'/pig.jpg'
+st.image(my_img)
 
 siteHeader = st.beta_container()
 with siteHeader:

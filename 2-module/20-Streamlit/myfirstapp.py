@@ -8,13 +8,13 @@ from sklearn.model_selection import train_test_split
 
 # Cargar datasets
 path = os.path.dirname(__file__)
-my_file = path+'/income.csv'
-df = pd.read_csv(my_file)
+data_file = path+'/income.csv'
+df = pd.read_csv(data_file)
 
 st.write(df.columns)
 
-my_img = path+'/pig.jpg'
-st.image(my_img)
+img_file = path+'/pig.jpg'
+st.image(img_file)
 
 siteHeader = st.beta_container()
 with siteHeader:

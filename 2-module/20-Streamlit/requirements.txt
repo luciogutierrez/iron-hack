@@ -5,4 +5,4 @@ numpy
 sklearn
 seaborn
 matplotlib
-pickle
+pickleshare==0.7.5
